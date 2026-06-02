@@ -1,0 +1,28 @@
+/* ── RESPONSIVE ── */
+@media (max-width: 991px) {
+  #sidebar { transform: translateX(-100%); }
+  #sidebar.visible { transform: translateX(0); box-shadow: 4px 0 24px rgba(0,0,0,0.18); }
+  .sidebar-close-btn { display: block; }
+  #sidebarOverlay { display: block; }
+  #topbar { left: 0 !important; }
+  #mainContent { margin-left: 0 !important; }
+  .topbar-toggle { display: block; }
+  .clock-chip { display: none; }
+}
+@media (max-width: 576px) {
+  .page-hdr { flex-direction: column; align-items: flex-start; }
+  .tbl-head { flex-direction: column; align-items: flex-start; }
+  .filter-bar { flex-direction: column; }
+  .filter-bar input, .filter-bar select { width: 100%; min-width: 0; flex: none; }
+  .toast-stack { left: 8px; right: 8px; bottom: 8px; }
+  .toast-item { min-width: unset; max-width: 100%; }
+  #mainContent { padding: 0.85rem; }
+  .form-card { padding: 1rem; }
+  .stat-value { font-size: 1.4rem; }
+  .chart-container-shell { height: 160px; }
+  .modal-dialog { margin: 0.5rem; }
+}
+@media print {
+  #sidebar, #topbar, .page-hdr .btn-solid, .filter-bar, .btn-xs, .btn-outline { display: none !important; }
+  #mainContent { margin: 0 !important; padding: 0 !important; }
+}
