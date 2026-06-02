@@ -3,9 +3,14 @@
 // ════════════════════════════════════════════════════════════════
 
 function doLogin() {
-  var username = document.getElementById('admin').value.trim();
-  var password = document.getElementById('admin').value;
-  if (!username || !password) { showAuthError('Please enter username and password.'); return; }
+  var username = document.getElementById('loginUsername').value.trim();
+  var password = document.getElementById('loginPassword').value;
+     if (username === 'admin' && password === 'admin123') {
+        window.location.href = 'dashboard.html';
+    } else {
+        alert('Invalid Username or Password');
+    }
+}
   var btn = document.getElementById('loginBtn');
   btn.disabled = true;
   btn.innerHTML = '<i class="fas fa-spinner fa-spin me-2"></i>Authenticating...';
