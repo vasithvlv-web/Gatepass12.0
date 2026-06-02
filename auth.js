@@ -3,8 +3,8 @@
 // ════════════════════════════════════════════════════════════════
 
 function doLogin() {
-  var username = document.getElementById('loginUsername').value.trim();
-  var password = document.getElementById('loginPassword').value;
+  var username = document.getElementById('admin').value.trim();
+  var password = document.getElementById('admin').value;
   if (!username || !password) { showAuthError('Please enter username and password.'); return; }
   var btn = document.getElementById('loginBtn');
   btn.disabled = true;
