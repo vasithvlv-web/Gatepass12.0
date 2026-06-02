@@ -271,29 +271,7 @@
 <div class="toast-stack" id="toastStack"></div>
 <div id="sidebarOverlay" onclick="closeSidebar()"></div>
 
-<!-- ══ AUTH ══ -->
-<div id="authContainer">
-  <div class="auth-card">
-    <div class="text-center mb-4">
-      <div class="auth-logo-ring"><i class="fas fa-shield-alt"></i></div>
-      <h3 class="mb-1">OneStop Portal</h3>
-      <p class="mb-0">Gate Control & Management System</p>
-    </div>
-    <div class="auth-error" id="authError"><i class="fas fa-exclamation-triangle"></i><span id="authErrorMsg"></span></div>
-    <div class="mb-3">
-      <label class="form-label">Username</label>
-      <input type="text" id="loginUsername" class="form-control" placeholder="Enter username" autocomplete="username">
-    </div>
-    <div class="mb-4">
-      <label class="form-label">Password</label>
-      <input type="password" id="loginPassword" class="form-control" placeholder="••••••••" autocomplete="current-password">
-    </div>
-    <button class="btn-brand w-100" id="loginBtn" onclick="doLogin()">
-      <i class="fas fa-sign-in-alt me-2"></i>ACCESS SYSTEM
-    </button>
-    <p class="text-center mt-3 mb-0" style="font-size:11px;color:var(--text-3)">Transmech LLC — Secure Gate Management Portal</p>
-  </div>
-</div>
+
 
 <!-- ══ APP ══ -->
 <div id="appContainer">
@@ -1232,49 +1210,6 @@ function nowString() {
   return new Date().toLocaleString('en-GB', { day:'2-digit', month:'short', year:'numeric', hour:'2-digit', minute:'2-digit', second:'2-digit' });
 }
 
-// ════════════════════════════════════════════════════════════════
-// AUTH
-// ════════════════════════════════════════════════════════════════
-function doLogin() {
-  var username = document.getElementById('loginUsername').value.trim();
-  var password = document.getElementById('loginPassword').value;
-  if (!username || !password) { showAuthError('Please enter username and password.'); return; }
-  var btn = document.getElementById('loginBtn');
-  btn.disabled = true;
-  btn.innerHTML = '<i class="fas fa-spinner fa-spin me-2"></i>Authenticating...';
-  google.script.run
-    .withSuccessHandler(function(res) {
-      btn.disabled = false;
-      btn.innerHTML = '<i class="fas fa-sign-in-alt me-2"></i>ACCESS SYSTEM';
-      if (res.success) { SESSION = res.user; hideAuthError(); bootApp(); }
-      else showAuthError(res.message || 'Authentication failed.');
-    })
-    .withFailureHandler(function(err) {
-      btn.disabled = false;
-      btn.innerHTML = '<i class="fas fa-sign-in-alt me-2"></i>ACCESS SYSTEM';
-      showAuthError('Server error: ' + err.message);
-    })
-    .handleLogin(username, password);
-}
-
-function doLogout() {
-  SESSION = null; REGISTRY = []; VISITOR_REGISTRY = [];
-  stopCamera(true); stopVisitorCamera();
-  if (visitorEntryTimeInterval) { clearInterval(visitorEntryTimeInterval); visitorEntryTimeInterval = null; }
-  if (exitClockInterval) { clearInterval(exitClockInterval); exitClockInterval = null; }
-  document.getElementById('appContainer').style.display = 'none';
-  document.getElementById('authContainer').style.display = 'flex';
-  document.getElementById('loginUsername').value = '';
-  document.getElementById('loginPassword').value = '';
-  closeSidebar();
-}
-
-function showAuthError(msg) {
-  var el = document.getElementById('authError');
-  document.getElementById('authErrorMsg').textContent = msg;
-  el.style.display = 'flex';
-}
-function hideAuthError() { document.getElementById('authError').style.display = 'none'; }
 
 // ════════════════════════════════════════════════════════════════
 // BOOT APP — ROLE-BASED NAV
